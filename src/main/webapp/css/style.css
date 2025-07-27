@@ -1,0 +1,43 @@
+/* Basic styling for the whole site */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Center the content */
+h1 {
+    text-align: center;
+    color: #4CAF50;
+    margin-top: 50px;
+}
+
+/* Style the links */
+a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Style the unordered list */
+ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+li {
+    margin: 10px;
+}
+
+li a:hover {
+    color: #ff5722;
+}
+
+/* Styling for the pages */
+h2 {
+    text-align: center;
+    color: #555;
+}
