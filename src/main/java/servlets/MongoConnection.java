@@ -1,16 +1,20 @@
 package servlets;
 
-import com.mongodb.*;
-
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 
 public class MongoConnection {
-		private static MongoClient mg= null;
-		public static MongoClient getClient()
-		{
-			if(mg == null)
-			{
-				mg = new MongoClient(new MongoClientURI("mongodb+srv://mukti2216patel:2P*8m%401973@cluster0.dhhmh6h.mongodb.net/servlet_demo"));
-			}
-			return mg;
-		}
+    private static MongoClient mg = null;
+
+    public static MongoClient getClient() {
+        if (mg == null) {
+           
+            String uri = System.getenv("MONGO_URI");
+            if (uri == null) {
+                throw new RuntimeException("MONGO_URI environment variable is not set!");
+            }
+            mg = new MongoClient(new MongoClientURI(uri));
+        }
+        return mg;
+    }
 }
