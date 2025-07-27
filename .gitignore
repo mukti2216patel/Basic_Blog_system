@@ -1,0 +1,12 @@
+# Ignore config files
+.env
+config.properties
+
+# IDE specific
+/.idea
+/.settings
+*.iml
+
+# Build folders
+/target
+/build
