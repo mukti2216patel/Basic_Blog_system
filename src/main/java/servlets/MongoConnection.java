@@ -9,7 +9,9 @@ public class MongoConnection {
     public static MongoClient getClient() {
         if (mg == null) {
            
-            String uri = System.getenv("MONGO_URI");
+            String uri = System.getenv("MONGO_URL");
+            System.out.println("MONGO_URL: " + System.getenv("MONGO_URL"));
+
             if (uri == null) {
                 throw new RuntimeException("MONGO_URI environment variable is not set!");
             }
