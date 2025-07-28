@@ -49,6 +49,10 @@
                                 <small class="text-muted">
                                     Author: <%= post.getString("author") != null ? post.getString("author") : "Unknown" %>
                                 </small>
+                                <form action="<%= request.getContextPath()%>/updatepost" method="get">                  
+								    <input type="hidden" name="id" value="<%= post.getObjectId("_id").toHexString() %>" />
+								    <button type="submit" class="btn btn-primary btn-sm">✏️ Update</button>
+								</form>                  
                             </div>
                         </div>
             <%

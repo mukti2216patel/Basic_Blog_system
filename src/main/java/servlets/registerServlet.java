@@ -17,26 +17,25 @@ import com.mongodb.client.*;
 
 @WebServlet("/")
 public class registerServlet extends HttpServlet{
-
-	@Override
-    public void init() {
-        // Initialization code here (run once)
-    }
-
+	
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-       req.getRequestDispatcher("index.jsp").forward(req, resp);
+    	
+    	    HttpSession session = req.getSession(false); 
+    	    System.out.println(session);
+    	    if (session == null || session.getAttribute("username") == null) {
+    	    		req.getRequestDispatcher("index.jsp").forward(req, resp);
+    	    }
+    	    else
+    	    {
+    	    	resp.sendRedirect(req.getContextPath() + "/dashboard");
+    	    }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        if (session != null && session.getAttribute("username") != null) {
-            resp.sendRedirect("/dashboard");
-            return;
-        }
-        
+       
         System.out.println("Comeee");
 
         String username = req.getParameter("username");
@@ -70,11 +69,7 @@ public class registerServlet extends HttpServlet{
     }
 
 
-    @Override
-    public void destroy() {
-        
-    }
-	
+   
 	
 	
 }
