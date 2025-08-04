@@ -16,26 +16,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-/**
- * Servlet implementation class updatePostServlet
- */
 @WebServlet("/updatepost")
 public class updatePostServlet extends HttpServlet {
 	
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-		if(session == null || session.getAttribute("username") == null)
-		{
-			response.sendRedirect(request.getContextPath() + "/login");
-			return;
-		}
-		
-		
+	
 		String id = request.getParameter("id");
 		ObjectId objectId = new ObjectId(id);
 

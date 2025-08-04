@@ -20,13 +20,6 @@ public class addPostServlet extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		HttpSession session = req.getSession(false);
-		if(session == null || session.getAttribute("username")==null)
-		{
-			resp.sendRedirect(req.getContextPath() + "/");
-            return;
-		}
 		req.getRequestDispatcher("addpost.jsp").forward(req, resp);
 	}	
 
@@ -41,9 +34,9 @@ public class addPostServlet extends HttpServlet{
         
         String title = req.getParameter("title");
         String content = req.getParameter("content");
-
+        String visibility = req.getParameter("visibility"); 
         
-        if (title == null || title.trim().isEmpty() || content == null || content.trim().isEmpty()) {
+        if (title == null || title.trim().isEmpty() || content == null || content.trim().isEmpty() || visibility == null || visibility.trim().isEmpty()){
             req.setAttribute("error", "Please fill required details.");
             req.getRequestDispatcher("addpost.jsp").forward(req, resp);
             return;
@@ -55,12 +48,11 @@ public class addPostServlet extends HttpServlet{
         MongoDatabase db = mg.getDatabase("servlet_demo");
         MongoCollection<Document> mgc = db.getCollection("posts");
         
-        Document doc = new Document("title" , title).append("content" , content).append("author" , username);
+        Document doc = new Document("title" , title).append("content" , content).append("author" , username).append("visibility", visibility);
         
         mgc.insertOne(doc);
         
         resp.sendRedirect(req.getContextPath() + "/dashboard");
-
 	}
 
 }

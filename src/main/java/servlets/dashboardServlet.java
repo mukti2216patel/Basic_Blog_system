@@ -23,17 +23,21 @@ public class dashboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("username") == null) {
-            resp.sendRedirect(req.getContextPath() + "/");
-            return;
+     
+        HttpSession session = req.getSession(false); 
+        String username = null;
+        if (session != null) {
+            username = (String) session.getAttribute("username");
         }
 
         MongoClient mg = MongoConnection.getClient();
         MongoDatabase db = mg.getDatabase("servlet_demo");
         MongoCollection<Document> postsCollection = db.getCollection("posts");
 
-        FindIterable<Document> postsCursor = postsCollection.find();
+
+        Document query = new Document("author" , username);
+
+        FindIterable<Document> postsCursor = postsCollection.find(query);
 
         List<Document> posts = new ArrayList<>();
         for (Document post : postsCursor) {
@@ -41,6 +45,8 @@ public class dashboardServlet extends HttpServlet {
         }
 
         req.setAttribute("posts", posts);
+      
+        req.setAttribute("username", username);
 
         req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
     }

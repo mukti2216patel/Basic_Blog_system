@@ -3,54 +3,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title text-center mb-4">Login</h3>
+<body class="bg-black text-white min-h-screen flex items-center justify-center px-4">
 
-                        <%-- Display error message if any --%>
-                        <%
-                            String errorMessage = (String) request.getAttribute("error");
-                            if (errorMessage != null) {
-                        %>
-                            <div class="alert alert-danger">
-                                <%= errorMessage %>
-                            </div>
-                        <%
-                            }
-                        %>
+<div class="w-full max-w-md bg-gray-900 shadow-lg rounded-xl p-8">
+    <h3 class="text-2xl font-bold text-center mb-6 text-indigo-400">🔐 Login</h3>
 
-                        <form action="login" method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required />
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required />
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                        </form>
-
-                        <div class="mt-3 text-center">
-                            <p>Don't have an account? <a href="index.jsp">Register here</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <%-- Show error if exists --%>
+    <%
+        String errorMessage = (String) request.getAttribute("error");
+        if (errorMessage != null) {
+    %>
+        <div class="bg-red-600/20 text-red-300 px-4 py-3 rounded mb-4">
+            <%= errorMessage %>
         </div>
-    </div>
+    <%
+        }
+    %>
 
-    <!-- Bootstrap JS Bundle with Popper (optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <form action="login" method="POST" class="space-y-5">
+        <div>
+            <label for="email" class="block text-sm font-medium mb-1 text-gray-300">Email</label>
+            <input type="email" id="email" name="email" required
+                   class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+
+        <div>
+            <label for="password" class="block text-sm font-medium mb-1 text-gray-300">Password</label>
+            <input type="password" id="password" name="password" required
+                   class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+
+        <div class="pt-2 text-center">
+            <button type="submit"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-2 rounded-lg transition">
+                Login
+            </button>
+        </div>
+    </form>
+
+    <div class="mt-6 text-center text-sm text-gray-400">
+        Don’t have an account? 
+        <a href="index.jsp" class="text-indigo-400 hover:underline">Register here</a>
+    </div>
+</div>
+
 </body>
 </html>

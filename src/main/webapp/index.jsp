@@ -1,46 +1,60 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" session="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>User Registration</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-black text-white min-h-screen flex items-center justify-center px-4">
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">User Registration</h2>
+<div class="w-full max-w-md bg-gray-900 shadow-lg rounded-xl p-8">
+    <h3 class="text-2xl font-bold text-center mb-6 text-indigo-400">📝 Register</h3>
 
- 
-    <form action="<%= request.getContextPath() %>/" method="POST">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username:</label>
-            <input type="text" class="form-control" id="username" name="username" required>
+    <%-- Show error if exists --%>
+    <%
+        String errorMessage = (String) request.getAttribute("error");
+        if (errorMessage != null) {
+    %>
+        <div class="bg-red-600/20 text-red-300 px-4 py-3 rounded mb-4">
+            <%= errorMessage %>
+        </div>
+    <%
+        }
+    %>
+
+    <form action="register" method="POST" class="space-y-5">
+        <div>
+            <label for="username" class="block text-sm font-medium mb-1 text-gray-300">Username</label>
+            <input type="text" id="username" name="username" required
+                   class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
         </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address:</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+        <div>
+            <label for="email" class="block text-sm font-medium mb-1 text-gray-300">Email</label>
+            <input type="email" id="email" name="email" required
+                   class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
         </div>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <input type="password" class="form-control" id="password" name="password" required>
+        <div>
+            <label for="password" class="block text-sm font-medium mb-1 text-gray-300">Password</label>
+            <input type="password" id="password" name="password" required
+                   class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Register</button>
-      
-        <% if(request.getAttribute("error") != null) {%>
-        	<p style="color:red;"><%= request.getAttribute("error") %></p>
-        <%} %>
+        <div class="pt-2 text-center">
+            <button type="submit"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-2 rounded-lg transition">
+                Register
+            </button>
+        </div>
     </form>
-     <div class="mt-3 text-center">
-                            <p>Account ? <a href="login.jsp">Login here</a></p>
-                        </div>
-</div>
 
+    <div class="mt-6 text-center text-sm text-gray-400">
+        Already have an account? 
+        <a href="login.jsp" class="text-indigo-400 hover:underline">Login here</a>
+    </div>
+</div>
 
 </body>
 </html>
