@@ -21,6 +21,8 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/dashboard")
 public class dashboardServlet extends HttpServlet {
 
+	@Inject
+	MongoService mongoService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
      
@@ -30,21 +32,7 @@ public class dashboardServlet extends HttpServlet {
             username = (String) session.getAttribute("username");
         }
 
-        MongoClient mg = MongoConnection.getClient();
-        MongoDatabase db = mg.getDatabase("servlet_demo");
-        MongoCollection<Document> postsCollection = db.getCollection("posts");
-
-
-        Document query = new Document("author" , username);
-
-        FindIterable<Document> postsCursor = postsCollection.find(query);
-
-        List<Document> posts = new ArrayList<>();
-        for (Document post : postsCursor) {
-            posts.add(post);
-        }
-
-        req.setAttribute("posts", posts);
+        req.setAttribute("posts", mongoService.getUserPosts(username));
       
         req.setAttribute("username", username);
 

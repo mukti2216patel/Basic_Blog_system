@@ -18,6 +18,9 @@ import jakarta.servlet.http.*;
 @WebServlet("/addpost")
 public class addPostServlet extends HttpServlet{
 
+	@Inject
+	private MongoService mongoService;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("addpost.jsp").forward(req, resp);
@@ -44,13 +47,8 @@ public class addPostServlet extends HttpServlet{
 		
        String username =(String) session.getAttribute("username");
         
-        MongoClient mg = MongoConnection.getClient();
-        MongoDatabase db = mg.getDatabase("servlet_demo");
-        MongoCollection<Document> mgc = db.getCollection("posts");
-        
-        Document doc = new Document("title" , title).append("content" , content).append("author" , username).append("visibility", visibility);
-        
-        mgc.insertOne(doc);
+       mongoService.addPost(title, content, username, visibility);
+
         
         resp.sendRedirect(req.getContextPath() + "/dashboard");
 	}
